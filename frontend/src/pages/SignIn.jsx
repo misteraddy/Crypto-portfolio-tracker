@@ -45,7 +45,7 @@ const SignIn = ({ toggleForm }) => {
       const response = await fakeSignIn(email, password);
       if (response.success) {
         console.log("User signed in successfully!");
-        navigate("/home");
+        navigate("/dashboard");
       } else {
         setFormError("Invalid email or password.");
       }

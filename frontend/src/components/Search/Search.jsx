@@ -1,10 +1,8 @@
 // Search.jsx
 import { Input } from "@/components/ui/input";
-import useSearchStore from "@/stores/useSearchStore";
 import { Button } from "../ui/button";
 
-export default function Search({ handleSearchChange, search }) {
-  const { fetchSearchResults } = useSearchStore();
+export default function Search({ handleSearchChange, search }) {  
 
   return (
     <div className="flex items-center w-full max-w-lg space-x-2 rounded-lg border border-gray-300 bg-gray-50 dark:bg-black px-3.5 py-2 mx-4">

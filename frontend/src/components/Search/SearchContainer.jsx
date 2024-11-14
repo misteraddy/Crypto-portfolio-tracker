@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import Search from "./Search";
+import fetchSearchResults from "@/hooks/fetchSearchResults";
 
-function SearchContainer() {
-  const [search, setSearch] = useState();
+function SearchContainer({ setSearchResults, currencies }) {
+  const [search, setSearch] = useState("");
 
-  function handleSearchChange(event) {
-    console.log(event.target.value);
-    setSearch(event.target.value);
+  async function handleSearchChange(event) {
+    const query = event.target.value;
+    setSearch(query);
+
+    const results = await fetchSearchResults(query, currencies);
+    setSearchResults(results);
   }
 
   return <Search handleSearchChange={handleSearchChange} search={search} />;

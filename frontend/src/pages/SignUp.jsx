@@ -59,7 +59,7 @@ const SignUp = ({ toggleForm }) => {
       const response = await fakeSignUp(email, password,confirmpassword);
       if (response.success) {
         console.log("User signed in successfully!");
-        navigate("/home");
+        navigate("/dashboard");
       } else {
         setFormError("Invalid email or password.");
       }

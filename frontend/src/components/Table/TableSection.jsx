@@ -1,20 +1,28 @@
-import React from 'react';
+// TableSection Component
+import React, { useState } from 'react';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { useNavigate } from "react-router-dom";
+import PaginationSection from '../Pagination/PaginationSection';
 
-const TableSection = ({ currentCurrencies }) => {
+const TableSection = ({ currentCurrencies, totalItems }) => {
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 7;
+
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
+  const currentItems = currentCurrencies.slice(firstItemIndex, lastItemIndex);
+
   const handleRowClick = (id) => {
-    navigate(`/home/list/${id}`);
+    navigate(`/coin/${id}`);
   };
 
   return (
@@ -31,9 +39,9 @@ const TableSection = ({ currentCurrencies }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {currentCurrencies.map((coin) => (
-            <TableRow 
-              key={coin.id} 
+          {currentItems.map((coin) => (
+            <TableRow
+              key={coin.id}
               onClick={() => handleRowClick(coin.id)}
               className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900"
             >
@@ -53,6 +61,14 @@ const TableSection = ({ currentCurrencies }) => {
           ))}
         </TableBody>
       </Table>
+      <div className="flex justify-center md:w-full md:mt-10 xs:text-sm">
+        <PaginationSection
+          totalItems={totalItems}  // Pass the totalItems prop here
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
     </div>
   );
 };
